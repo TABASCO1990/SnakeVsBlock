@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
@@ -5,12 +6,13 @@ public class PlayerControl : MonoBehaviour
     public float forwardSpeed = 5;
     public float sensitivity = 10;
     private float sidewaysSpeed;
-    private int lengthTail = 1;
+    public static int lengthTail = 0;
 
     private Camera mainCamera;
     private Rigidbody snakeRb;
     private Vector3 touchLastPos;
-    private SnakeBody component;
+    public static SnakeBody component;
+    
 
     private void Start()
     {
@@ -26,19 +28,20 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             component.AddTail();
-            lengthTail++;
-            Debug.Log(lengthTail);
+            /*lengthTail++;
+            Debug.Log(lengthTail);*/
         }
 
         if (Input.GetKeyDown(KeyCode.D)){
             component.RemoveTail();
-            lengthTail--;
-            Debug.Log(lengthTail);
+            /*lengthTail--;
+            Debug.Log(lengthTail);*/
         }
         
     }
     private void FixedUpdate()
     {
+       
         snakeRb.velocity = new Vector3(sidewaysSpeed*5,0 ,forwardSpeed);
         sidewaysSpeed = 0;
     }
