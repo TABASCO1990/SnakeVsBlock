@@ -6,38 +6,27 @@ public class PlayerControl : MonoBehaviour
     public float forwardSpeed = 5;
     public float sensitivity = 10;
     private float sidewaysSpeed;
-    public static int lengthTail = 0;
-
+    
     private Camera mainCamera;
     private Rigidbody snakeRb;
     private Vector3 touchLastPos;
-    public static SnakeBody component;
     
+    public static SnakeBody component;
+    public static int lengthTail = 0;
 
+    public TextMeshPro PointsText;
     private void Start()
     {
         mainCamera = Camera.main;
         snakeRb = GetComponent<Rigidbody>();
         component = GetComponent<SnakeBody>();
+        PointsText.SetText(lengthTail.ToString());
     }
 
     private void Update()
     {
         Movement();
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            component.AddTail();
-            /*lengthTail++;
-            Debug.Log(lengthTail);*/
-        }
-
-        if (Input.GetKeyDown(KeyCode.D)){
-            component.RemoveTail();
-            /*lengthTail--;
-            Debug.Log(lengthTail);*/
-        }
-        
+        PointsText.SetText(lengthTail.ToString());
     }
     private void FixedUpdate()
     {
