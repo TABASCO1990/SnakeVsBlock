@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,10 +9,17 @@ public class SnakeBody : MonoBehaviour
     public float CircleDiameter;
     private List<Transform> snakeCircle = new List<Transform>();
     private List<Vector3> position = new List<Vector3>();
+    private PlayerControl _playerControl;
+    private AudioSource _audioBlock;
+    public AudioSource _audioBonus;
+    public ParticleSystem boomPrefab;
+    
 
     private void Start()
     {
         position.Add(SnakeHead.position);
+        _playerControl = GetComponent<PlayerControl>();
+        _audioBlock = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -39,13 +47,17 @@ public class SnakeBody : MonoBehaviour
         Transform circle = Instantiate(SnakeHead, position[position.Count - 1], Quaternion.identity,transform);
         snakeCircle.Add(circle);
         position.Add(circle.position);
+        _audioBonus.Play();
     }
     // Удаляем из хвоста
     public void RemoveTail()
     {
         Destroy(snakeCircle[0].gameObject);
+        transform.position = new Vector3(transform.position.x,transform.position.y,transform.position.z - 0.1f);
         snakeCircle.RemoveAt(0);
         position.RemoveAt(1);
-        
+        transform.position = new Vector3(transform.position.x,transform.position.y,transform.position.z);
+        _audioBlock.Play();
+        boomPrefab.Play();
     }
 }
