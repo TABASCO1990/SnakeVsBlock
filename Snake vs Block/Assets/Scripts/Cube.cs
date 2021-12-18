@@ -26,7 +26,7 @@ public class Cube : MonoBehaviour
        Gradient g = new Gradient();
        GradientColorKey[] gck = new GradientColorKey[2];
        GradientAlphaKey[] gak = new GradientAlphaKey[2];
-       gck[0].color = Color.black;
+       gck[0].color = new Color(0.1f, 0.05f, 0f);
        gck[0].time = 1.0F;
        gak[0].alpha = 0F;
        gak[0].time = 1.0F;
@@ -37,11 +37,10 @@ public class Cube : MonoBehaviour
        gak[1].time = -1.0F;
        
        g.SetKeys(gck, gak);
-       _renderer.material.color = g.Evaluate(weightCube/10f);
+       _renderer.material.color = g.Evaluate(weightCube/15f);
     }
     private void OnTriggerEnter(Collider other)
     {
-        
         PlayerControl.lengthTail--; 
         PlayerControl.component.RemoveTail();
         weightCube--; 
@@ -59,6 +58,4 @@ public class Cube : MonoBehaviour
         
         
     }
-
-   
 }

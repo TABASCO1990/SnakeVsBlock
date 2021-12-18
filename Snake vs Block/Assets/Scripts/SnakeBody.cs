@@ -52,6 +52,12 @@ public class SnakeBody : MonoBehaviour
     // Удаляем из хвоста
     public void RemoveTail()
     {
+        if (snakeCircle.Count <= 0)
+        {
+            Debug.Log("Игра окончена");
+            Destroy(gameObject);
+        }
+
         Destroy(snakeCircle[0].gameObject);
         transform.position = new Vector3(transform.position.x,transform.position.y,transform.position.z - 0.1f);
         snakeCircle.RemoveAt(0);
@@ -59,5 +65,6 @@ public class SnakeBody : MonoBehaviour
         transform.position = new Vector3(transform.position.x,transform.position.y,transform.position.z);
         _audioBlock.Play();
         boomPrefab.Play();
+        
     }
 }
